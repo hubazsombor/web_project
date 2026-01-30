@@ -1,0 +1,26 @@
+{
+  "name": "web_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hubazsombor/web_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/hubazsombor/web_project/issues"
+  },
+  "homepage": "https://github.com/hubazsombor/web_project#readme",
+  "devDependencies": {
+    "@types/node": "^25.1.0",
+    "@types/typescript": "^0.4.29",
+    "typescript": "^5.9.3"
+  }
+}
