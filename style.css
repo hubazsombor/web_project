@@ -7,8 +7,9 @@ header{
     align-content: center;
 }
 
-p{
+#head{
     color: #fff;
+    font-size: 30px;
 }
 
 body{
@@ -23,6 +24,24 @@ body{
 
 .custom-navbar{
     background-color: brown;
+}
+
+.nav-item{
+    font-size: 20px;
+}
+
+.navbar-brand{
+    font-size: 25px;
+}
+
+.msg{
+    background-color: #1C1F26;
+    color: #fff;
+    font-size: 20px;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    margin: 30vh auto;
 }
 
 

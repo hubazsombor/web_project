@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/hubazsombor/web_project#readme",
   "devDependencies": {
-    "@types/node": "^25.1.0",
+    "@types/node": "^25.2.0",
     "@types/typescript": "^0.4.29",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "undici-types": "^7.16.0"
   }
 }
