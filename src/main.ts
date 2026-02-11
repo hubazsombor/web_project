@@ -1,3 +1,53 @@
+
+interface RespType{
+    translations: {
+        hun: {
+            common: string;
+        }
+    }
+    continents: string;
+    timezones: string;
+}
+
+async function getAll(path: string): Promise<RespType[]> {
+    try{
+        const response = await fetch(path);
+        if (!response.ok) throw new Error("Request error.");
+
+        return await response.json();
+    } catch(error) {
+        console.error(`Error: ${error}`);
+        return [];
+    }
+}
+
+const buttons = document.querySelectorAll("li a") as NodeListOf<HTMLAnchorElement>;
+
+buttons.forEach(button => {
+    button.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const region = button.dataset.region;
+
+        if (!region) {
+            console.log("Nincs data-region az elemen:", button);
+            return;
+        }
+
+        const url = `https://restcountries.com/v3.1/region/${region}`;
+        const data = await getAll(url);
+
+        console.log(data);
+    });
+});
+
+
+
+
+
+
+
+
 function msg(): void{
     const section = document.querySelector("#message") as HTMLDivElement;
     section.innerHTML = `

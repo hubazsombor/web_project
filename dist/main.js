@@ -1,3 +1,25 @@
+async function getAll(path) {
+    try {
+        const response = await fetch(path);
+        if (!response.ok)
+            throw new Error("Request error.");
+        return await response.json();
+    }
+    catch (error) {
+        console.error(`Error: ${error}`);
+        return [];
+    }
+}
+const buttons = document.querySelectorAll("li a");
+buttons.forEach(button => {
+    button.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const region = button.dataset.region;
+        const url = `https://restcountries.com/v3.1/region/${region}`;
+        const data = await getAll(url);
+        console.log(data);
+    });
+});
 function msg() {
     const section = document.querySelector("#message");
     section.innerHTML = `
