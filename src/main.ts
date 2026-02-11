@@ -5,7 +5,7 @@ interface RespType{
         }
     }
     continents: string;
-    timezones: string;
+    timezones: string[];
 }
 
 async function getAll(path: string): Promise<RespType[]> {
@@ -20,19 +20,6 @@ async function getAll(path: string): Promise<RespType[]> {
     }
 }
 
-const buttons = document.querySelectorAll("li a") as NodeListOf<HTMLAnchorElement>;
-
-buttons.forEach(button => {
-    button.addEventListener("click", async () => {
-        const region = button.getAttribute("value");
-
-        const url = `https://restcountries.com/v3.1/region/${region}`;
-        const data = await getAll(url);
-        console.log(url);
-        console.log(data);
-    });
-});
-
 function msg(): void{
     const section = document.querySelector("#message") as HTMLDivElement;
     section.innerHTML = `
@@ -41,11 +28,26 @@ function msg(): void{
         </p>`;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    msg()
+const buttons = document.querySelectorAll("li a") as NodeListOf<HTMLAnchorElement>;
+buttons.forEach(button => {
+    button.addEventListener("click", async () => {
+        const region = button.getAttribute("value");
+        const url = `https://restcountries.com/v3.1/region/${region}`;
+        const data = await getAll(url);
+        renderCountries(data);
+
+        const section = document.querySelector("#message") as HTMLDivElement;
+        section.innerHTML = ``;
+
+        console.log(url);
+        console.log(data);
+    });
 });
 
-function clearMsg() {
+
+
+////////////////////////////////////////////////////////////////////////////////////
+/* function clearMsg() {
     const section = document.querySelector("#message") as HTMLDivElement;
     const buttons = document.querySelectorAll(".nav-item");
     buttons.forEach( btn => {
@@ -53,7 +55,18 @@ function clearMsg() {
             section.innerHTML = ``;
         }
     )});
-} 
+}  */
+//clearMsg();
+////////////////////////////////////////////////////////////////////////////////////
+
+function renderCountries(cData: RespType[]) {
+    const cards = document.querySelector("#cards") as HTMLUListElement;
+    cards.innerHTML = cData.map(c => 
+        `
+        <li id="card">${c.translations.hun.common}<br>${c.timezones.at(0)}</li>
+        `
+    ).join();
+}
 
 
 
@@ -62,7 +75,9 @@ function clearMsg() {
 
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    msg()
+});
 
 
 
-clearMsg();
