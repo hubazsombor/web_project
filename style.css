@@ -82,7 +82,6 @@ body{
 .custom-navbar {
     background: rgba(20, 20, 20, 0.55);
     backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
