@@ -12,11 +12,11 @@ async function getAll(path) {
 }
 const buttons = document.querySelectorAll("li a");
 buttons.forEach(button => {
-    button.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const region = button.dataset.region;
+    button.addEventListener("click", async () => {
+        const region = button.getAttribute("value");
         const url = `https://restcountries.com/v3.1/region/${region}`;
         const data = await getAll(url);
+        console.log(url);
         console.log(data);
     });
 });

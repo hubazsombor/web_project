@@ -24,29 +24,15 @@ async function getAll(path: string): Promise<RespType[]> {
 const buttons = document.querySelectorAll("li a") as NodeListOf<HTMLAnchorElement>;
 
 buttons.forEach(button => {
-    button.addEventListener("click", async (e) => {
-        e.preventDefault();
-
-        const region = button.dataset.region;
-
-        if (!region) {
-            console.log("Nincs data-region az elemen:", button);
-            return;
-        }
+    button.addEventListener("click", async () => {
+        const region = button.getAttribute("value");
 
         const url = `https://restcountries.com/v3.1/region/${region}`;
         const data = await getAll(url);
-
+        console.log(url);
         console.log(data);
     });
 });
-
-
-
-
-
-
-
 
 function msg(): void{
     const section = document.querySelector("#message") as HTMLDivElement;
