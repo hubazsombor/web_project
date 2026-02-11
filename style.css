@@ -40,6 +40,16 @@ body{
     background-size: cover;
 }
 
+.msg{
+    background-color: #1C1F26;
+    color: #fff;
+    font-size: 20px;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    margin: 30vh auto;
+}
+
 .custom-navbar{
     background: rgba(15, 30, 50, 0.55);
     color: #ffff;
