@@ -43,10 +43,28 @@ buttons.forEach(button => {
 //clearMsg();
 ////////////////////////////////////////////////////////////////////////////////////
 function renderCountries(cData) {
-    const cards = document.querySelector("#cards");
+    const cards = document.querySelector(".cards");
     cards.innerHTML = cData.map(c => `
-        <li id="card">${c.translations.hun.common}<br>${c.timezones.at(0)}</li>
-        `).join();
+        <li class="card">${c.translations.hun.common}<br>${getTime}</li>
+        ` // a timezones-t át kell írni a számoló function nevére, ha kész lesz, hogy a pontos időt mutassa, ne csak a zónát c.timezones.at(0)
+    ).join();
+}
+function getTime(offset) {
+    // pl: "UTC+01:00", "UTC-03:30"
+    const match = offset.match(/^UTC([+-])(\d{2}):(\d{2})$/);
+    if (!match) {
+        throw new Error("Hibás formátum: " + offset);
+    }
+    const sign = match[1]; // + vagy -
+    const hours = Number(match[2]);
+    const minutes = Number(match[3]);
+    const totalMinutes = hours * 60 + minutes;
+    const signedMinutes = sign === "+" ? totalMinutes : -totalMinutes;
+    const now = new Date();
+    // aktuális UTC idő ms-ben
+    const utcMs = now.getTime() +
+        now.getTimezoneOffset() * 60_000;
+    return new Date(utcMs + signedMinutes * 60_000);
 }
 document.addEventListener("DOMContentLoaded", () => {
     msg();

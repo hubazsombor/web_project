@@ -1,5 +1,4 @@
 header {
-    position: relative;
     padding: 20px 0;
     text-align: center;
 
@@ -33,11 +32,16 @@ header::after {
 body{
     margin: 0 auto;
     background-image: url(./img/background.jpg);
-    position: fixed;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .msg{
@@ -53,6 +57,9 @@ body{
 .custom-navbar{
     background: rgba(15, 30, 50, 0.55);
     color: #ffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .custom-navbar .navbar-nav {
@@ -86,7 +93,7 @@ body{
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-#card{
+.card{
     height: 160px;
     width: 150px;
     background-color: aqua;
@@ -96,16 +103,15 @@ body{
     list-style: none;   /* <- eltünteti a pontot a li elemek elől */
 } 
 
-#cards{
-    align-items: center;
-    align-content: center;
+.cards{
+    gap: 9px;
+    margin: 20px auto;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
-    height: 100%;
-    margin: 20px 0 0 0;
-}
+    flex-direction: row;
+    padding-left: 20px;
+    justify-content: center;
+}   
 
 
 
