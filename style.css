@@ -1,3 +1,5 @@
+/* --------------- HEADER ------------------*/
+
 header {
     padding: 20px 0;
     text-align: center;
@@ -29,6 +31,8 @@ header::after {
     border-radius: 2px;
 }
 
+/* --------------- ALAP OLDAL (HTML + MAIN) -------------------*/
+
 body{
     margin: 0 auto;
     background-image: url(./img/background.jpg);
@@ -44,6 +48,8 @@ main{
     flex-wrap: wrap;
 }
 
+/* ------------ KEZDŐ ÜZENET ----------------*/
+
 .msg{
     background-color: #1C1F26;
     color: #fff;
@@ -53,6 +59,8 @@ main{
     text-align: center;
     margin: 30vh auto;
 }
+
+/* -------------- NAVBAR ÉS ELEMEINEK MEGJELENÉSE ------------------*/
 
 .custom-navbar{
     background: rgba(15, 30, 50, 0.55);
@@ -81,7 +89,7 @@ main{
 }
 
 .custom-navbar .nav-link, .custom-navbar .navbar-brand {
-    color: #f1f1f1 !important;
+    color: #fff !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
     font-weight: 500;
 }
@@ -89,29 +97,48 @@ main{
 .custom-navbar {
     background: rgba(20, 20, 20, 0.55);
     backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
+
+/* ----------------- KÁRTYÁK MEGJELENÉSE -----------------*/
 
 .card{
     height: 160px;
     width: 150px;
     background-color: aqua;
     border-radius: 3px;
+    list-style: none;  /* <- eltünteti a pontot a li elemek elől  */
     text-align: center;
-    align-content: center;
-    list-style: none;   /* <- eltünteti a pontot a li elemek elől */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    
 } 
 
-.cards{
-    gap: 9px;
-    margin: 20px auto;
+.cards {
+    gap: 20px; /* Megnövelt távolság a szellősebb megjelenésért */
+    margin: 40px auto;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    padding-left: 20px;
     justify-content: center;
-}   
+    padding: 0 20px;
+}
+
+.card h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.card p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+
 
 
 

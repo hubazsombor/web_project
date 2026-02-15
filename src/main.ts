@@ -1,3 +1,4 @@
+/////////////// SAJÁT TÍPUS + ASYNC ///////////////////
 
 interface RespType{
     translations: {
@@ -21,6 +22,8 @@ async function getAll(path: string): Promise<RespType[]> {
     }
 }
 
+/////////// KEZDŐ ÜZENET ///////////////
+
 function msg(): void{
     const section = document.querySelector("#message") as HTMLDivElement;
     section.innerHTML = `
@@ -28,6 +31,8 @@ function msg(): void{
             Válassza ki a kilistázni kivánt kontinenst!
         </p>`;
 }
+
+/////////// VÁLASZTOTT KONTINENS RENDERELÉSE, KEZDŐ ÜZENET TÖRLÉSE ///////////
 
 const buttons = document.querySelectorAll("li a") as NodeListOf<HTMLAnchorElement>;
 buttons.forEach(button => {
@@ -45,58 +50,43 @@ buttons.forEach(button => {
     });
 });
 
+////////// API VÁLASZÁNAK MEGJELENÍTÉSE /////////////////////
 
-
-////////////////////////////////////////////////////////////////////////////////////
-/* function clearMsg() {
-    const section = document.querySelector("#message") as HTMLDivElement;
-    const buttons = document.querySelectorAll(".nav-item");
-    buttons.forEach( btn => {
-        btn.addEventListener("click", () => {
-            section.innerHTML = ``;
-        }
-    )});
-}  */
-//clearMsg();
-////////////////////////////////////////////////////////////////////////////////////
-
-function renderCountries(cData: RespType[]) {
+function renderCountries(data: RespType[]) {
     const cards = document.querySelector(".cards") as HTMLUListElement;
-    cards.innerHTML = cData.map(c => 
-        `
-        <li class="card">${c.translations.hun.common}<br>${c.timezones.at(0)}</li>
-        `// a timezones-t át kell írni a számoló function nevére, ha kész lesz, hogy a pontos időt mutassa, ne csak a zónát c.timezones.at(0)
-    ).join();
+
+    cards.innerHTML = data.map(c => `
+        <li class="card">
+            <h4>${c.translations.hun.common}</h4> <br>
+            <p>${getTime(c.timezones.at(0) ?? "UTC")}</p>
+        </li>
+    `).join("");
 }
 
-// function getTime(offset: string): Date {
-//     // pl: "UTC+01:00", "UTC-03:30"
+/////////// A KAPOTT UTC OFFSET ÁTSZÁMOLÁSA AKTUÁLIS IDŐBE (PL. "UTC+01:00" )////////////////
 
-//     const match = offset.match(/^UTC([+-])(\d{2}):(\d{2})$/);
+function getTime(offset: string): string {
+    const match = offset.match(/UTC([+-])(\d{2}):(\d{2})/);
 
-//     if (!match) {
-//         throw new Error("Hibás formátum: " + offset);
-//     }
+    if (!match) return "Ismeretlen idő";
 
-//     const sign = match[1];     // + vagy -
-//     const hours = Number(match[2]);
-//     const minutes = Number(match[3]);
+    // Destrukturáljuk a csoportokat: az első elem a teljes egyezés, azt kihagyjuk (_)
+    const [, signChar, hoursStr, minutesStr] = match;
 
-//     const totalMinutes = hours * 60 + minutes;
-//     const signedMinutes = sign === "+" ? totalMinutes : -totalMinutes;
+    const sign = signChar === "+" ? 1 : -1;
+    const hours = parseInt(match[2] ?? "0");
+    const minutes = parseInt(match[3] ?? "0");
+    const totalMinutes = sign * (hours * 60 + minutes);
 
-//     const now = new Date();
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const targetTime = new Date(utc + totalMinutes * 60000);
 
-//     // aktuális UTC idő ms-ben
-//     const utcMs =
-//         now.getTime() +
-//         now.getTimezoneOffset() * 60_000;
-
-//     return new Date(utcMs + signedMinutes * 60_000);
-// }
-
-
-
+    return targetTime.toLocaleTimeString("hu-HU", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
 
 
 
