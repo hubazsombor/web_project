@@ -1,3 +1,5 @@
+/////////////// SAJÁT TÍPUS + ASYNC ///////////////////
+
 interface RespType{
     translations: {
         hun: {
@@ -20,6 +22,8 @@ async function getAll(path: string): Promise<RespType[]> {
     }
 }
 
+/////////// KEZDŐ ÜZENET ///////////////
+
 function msg(): void{
     const section = document.querySelector("#message") as HTMLDivElement;
     section.innerHTML = `
@@ -27,6 +31,8 @@ function msg(): void{
             Válassza ki a kilistázni kivánt kontinenst!
         </p>`;
 }
+
+/////////// VÁLASZTOTT KONTINENS RENDERELÉSE, KEZDŐ ÜZENET TÖRLÉSE ///////////
 
 const buttons = document.querySelectorAll("li a") as NodeListOf<HTMLAnchorElement>;
 buttons.forEach(button => {
@@ -44,39 +50,50 @@ buttons.forEach(button => {
     });
 });
 
+////////// API VÁLASZÁNAK MEGJELENÍTÉSE /////////////////////
 
+function renderCountries(data: RespType[]) {
+    const cards = document.querySelector(".cards") as HTMLUListElement;
 
-////////////////////////////////////////////////////////////////////////////////////
-/* function clearMsg() {
-    const section = document.querySelector("#message") as HTMLDivElement;
-    const buttons = document.querySelectorAll(".nav-item");
-    buttons.forEach( btn => {
-        btn.addEventListener("click", () => {
-            section.innerHTML = ``;
-        }
-    )});
-}  */
-//clearMsg();
-////////////////////////////////////////////////////////////////////////////////////
-
-function renderCountries(cData: RespType[]) {
-    const cards = document.querySelector("#cards") as HTMLUListElement;
-    cards.innerHTML = cData.map(c => 
-        `
-        <li id="card">${c.translations.hun.common}<br>${c.timezones.at(0)}</li>
-        `
-    ).join();
+    cards.innerHTML = data.map(c => `
+        <li class="card">
+            <h4>${c.translations.hun.common}</h4> <br>
+            <p>${getTime(c.timezones.at(0) ?? "UTC")}</p>
+        </li>
+    `).join("");
 }
 
+/////////// A KAPOTT UTC OFFSET ÁTSZÁMOLÁSA AKTUÁLIS IDŐBE (PL. "UTC+01:00" )////////////////
 
+function getTime(offset: string): string {
+    const match = offset.match(/UTC([+-])(\d{2}):(\d{2})/);
 
+    if (!match) return "Ismeretlen idő";
 
+    // Destrukturáljuk a csoportokat: az első elem a teljes egyezés, azt kihagyjuk (_)
+    const [, signChar, hoursStr, minutesStr] = match;
+
+    const sign = signChar === "+" ? 1 : -1;
+    const hours = parseInt(match[2] ?? "0");
+    const minutes = parseInt(match[3] ?? "0");
+    const totalMinutes = sign * (hours * 60 + minutes);
+
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const targetTime = new Date(utc + totalMinutes * 60000);
+
+    return targetTime.toLocaleTimeString("hu-HU", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
 
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
     msg()
+    
 });
 
 
