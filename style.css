@@ -3,11 +3,8 @@
 header {
     padding: 20px 0;
     text-align: center;
-
     background: rgba(15, 25, 40, 0.55);
     backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -16,7 +13,7 @@ header p {
     font-size: 1.4rem;
     letter-spacing: 1px;
     font-weight: 500;
-    color: #f1f1f1;
+    color: #fff;
 
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
@@ -103,9 +100,10 @@ main{
 /* ----------------- KÁRTYÁK MEGJELENÉSE -----------------*/
 
 .card{
-    height: 160px;
+    height: 175px;
     width: 150px;
-    background-color: aqua;
+    background-color: #3B332C;
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 3px;
     list-style: none;  /* <- eltünteti a pontot a li elemek elől  */
     text-align: center;
@@ -116,15 +114,6 @@ main{
     padding: 15px;
     
 } 
-
-.cards {
-    gap: 20px; /* Megnövelt távolság a szellősebb megjelenésért */
-    margin: 40px auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 0 20px;
-}
 
 .card h4 {
     margin: 0 0 10px 0;
@@ -138,6 +127,20 @@ main{
     font-size: 1.2rem;
 }
 
+
+.cards {
+    gap: 20px; /* Megnövelt távolság a szellősebb megjelenésért */
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+img{
+    height: 30px;
+    width: 50px;
+}
 
 
 

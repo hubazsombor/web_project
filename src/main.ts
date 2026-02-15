@@ -8,6 +8,9 @@ interface RespType{
     }
     continents: string;
     timezones: string[];
+    flags: {
+        png: string;
+    }
 }
 
 async function getAll(path: string): Promise<RespType[]> {
@@ -57,8 +60,9 @@ function renderCountries(data: RespType[]) {
 
     cards.innerHTML = data.map(c => `
         <li class="card">
-            <h4>${c.translations.hun.common}</h4> <br>
-            <p>${getTime(c.timezones.at(0) ?? "UTC")}</p>
+            <h4>${c.translations.hun.common}</h4> 
+            <p> <img src="${c.flags.png}" </p> <br> 
+            <p>idő: ${getTime(c.timezones.at(0) ?? "UTC")}</p>
         </li>
     `).join("");
 }

@@ -38,8 +38,9 @@ function renderCountries(data) {
     const cards = document.querySelector(".cards");
     cards.innerHTML = data.map(c => `
         <li class="card">
-            <h4>${c.translations.hun.common}</h4> <br>
-            <p>${getTime(c.timezones.at(0) ?? "UTC")}</p>
+            <h4>${c.translations.hun.common}</h4> 
+            <p> <img src="${c.flags.png}" </p> <br> 
+            <p>idő: ${getTime(c.timezones.at(0) ?? "UTC")}</p>
         </li>
     `).join("");
 }
